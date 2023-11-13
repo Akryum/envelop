@@ -98,19 +98,19 @@ export function getHistogramFromConfig(
   return typeof config[phase] === 'object'
     ? (config[phase] as ReturnType<typeof createHistogram>)
     : config[phase] === true
-    ? createHistogram({
-        histogram: new Histogram({
-          name,
-          help,
-          labelNames: ['operationType', 'operationName'] as const,
-          registers: [config.registry || defaultRegistry],
-        }),
-        fillLabelsFn: params => ({
-          operationName: params.operationName!,
-          operationType: params.operationType!,
-        }),
-      })
-    : undefined;
+      ? createHistogram({
+          histogram: new Histogram({
+            name,
+            help,
+            labelNames: ['operationType', 'operationName'] as const,
+            registers: [config.registry || defaultRegistry],
+          }),
+          fillLabelsFn: params => ({
+            operationName: params.operationName!,
+            operationType: params.operationType!,
+          }),
+        })
+      : undefined;
 }
 
 export function extractDeprecatedFields(node: ASTNode, typeInfo: TypeInfo): DeprecatedFieldInfo[] {
